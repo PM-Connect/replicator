@@ -6,6 +6,10 @@ NEW FEATURES:
 * **Scaling Provider**: Replicator now implements a cloud provider model to support cluster scaling operations across multiple cloud providers. [GH-203]
 * **OpsGenie Notifier**: Replicator now supports OpsGenie as a backend notifier. Thank you to @vladshub. [GH-225]
 * **Worker Pool Configuration In Consul**: Replicator now supports the ability to store full worker pool configuration in the Consul Key/Value store allowing for minimal configuration to be stored in the node meta configuration parameters. [GH-204]
+* **replicator_retry_threshold**: A new config flag added to allow configuration for retrying job scaling activites before entering failsafe. Thank you to @djenriquez [GH-261] 
+
+IMPROVEMENTS:
+* Replicator configuration now takes into account Nomad ACL token and Consul HTTP scheme. [GH-273](https://github.com/elsevier-core-engineering/replicator/pull/273)
 
 BUG FIXES:
 
@@ -15,6 +19,11 @@ BUG FIXES:
 * Prevent processing of Nomad system jobs. [GH-220]
 * Prevent panic when Replicator fails to determine the IP address of a node during worker pool scale-in operations. Thank you to @burdandrei. [GH-222]
 * Prevent errors when Replicator attempts a cluster scale-in operation while the prioritized scaling metric is `ScalingMetricDsik`. [GH-240]
+* Increase timeout for ASG scaling result. [GH-258]
+* Use `time.NewTicker` rather than `time.Tick` for garbage collection issues and timeouts. [GH-262]
+* Continue on with node termination even if the ASG detach fails. [GH-269]
+* Fix issue caused by changes Nomad 0.8 where deployments can now return null. [GH-270]
+
 
 IMPROVEMENTS:
 
